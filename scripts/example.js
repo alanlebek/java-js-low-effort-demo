@@ -1,3 +1,5 @@
+import { secret as ss } from 'superSecret';
+
 function test(param) {
 	return `${param} - javaskrypt`;
 }
@@ -34,6 +36,8 @@ function callJava(param) {
 
 
 function callJavaGraal(param) {
+	
+	// var e = ss + 1;
 	var random = Math.floor(Math.random(10) * 100);
 	var PrzykladHosted = Java.type('pl.prezentacja.demko.core.scripts.mozilla.PrzykladHosted');
 	var przyklad = new PrzykladHosted(random);

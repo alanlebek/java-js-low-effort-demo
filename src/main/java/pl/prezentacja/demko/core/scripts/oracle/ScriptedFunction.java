@@ -3,6 +3,7 @@ package pl.prezentacja.demko.core.scripts.oracle;
 import org.graalvm.polyglot.Context;
 import org.graalvm.polyglot.HostAccess;
 import org.graalvm.polyglot.Source;
+import org.graalvm.polyglot.io.IOAccess;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.prezentacja.demko.core.scripts.JSScript;
@@ -28,14 +29,15 @@ public class ScriptedFunction implements JSScript {
                 .allowAllAccess(true)
                 .allowHostAccess(HostAccess.ALL)
                 .allowHostClassLookup(lookupWhiteList::contains)
+                .allowIO(IOAccess.newBuilder().fileSystem(new MyFileSystem()).build())
                 .option("js.ecmascript-version", "2022")
-                .option("inspect", "4242")
-                .option("inspect.Path", java.util.UUID.randomUUID().toString())
-                .option("inspect.WaitAttached", "true")
+//                .option("inspect", "4242")
+//                .option("inspect.Path", java.util.UUID.randomUUID().toString())
+//                .option("inspect.WaitAttached", "false")
                 .build();
         ) {
             var code = new String(Files.readAllBytes(path));
-            var sourceName = String.format("<%s>", path);
+            var sourceName = String.format("%s", path.toString().replace(".js", ".mjs"));
             context.eval(Source.newBuilder("js", code, sourceName).build());
 
             var function = context.getBindings("js").getMember(functionName);
