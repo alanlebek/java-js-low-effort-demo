@@ -24,6 +24,7 @@ dependencies {
 	// Oracle GraalJS
 	implementation 'org.graalvm.polyglot:js:24.0.1'
 	implementation 'org.graalvm.polyglot:polyglot:24.0.1'
+	runtimeOnly 'org.graalvm.tools:chromeinspector:23.0.4'
 
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'

@@ -12,6 +12,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 public class ScriptedFunction implements JSScript {
     private static final Logger log = LoggerFactory.getLogger(ScriptedFunction.class);
@@ -28,6 +29,9 @@ public class ScriptedFunction implements JSScript {
                 .allowHostAccess(HostAccess.ALL)
                 .allowHostClassLookup(lookupWhiteList::contains)
                 .option("js.ecmascript-version", "2022")
+                .option("inspect", "4242")
+                .option("inspect.Path", java.util.UUID.randomUUID().toString())
+                .option("inspect.WaitAttached", "true")
                 .build();
         ) {
             var code = new String(Files.readAllBytes(path));
